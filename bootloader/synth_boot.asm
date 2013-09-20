@@ -12,6 +12,8 @@
 
 ;***** Pin definitions
 
+.equ	PIN_ENABLE	= PC5
+
 .equ	PIN_RING	= PB0
 .equ	PIN_TIP		= PB2
 
@@ -46,6 +48,10 @@ setup:
 	out		SPH, r16
 	ldi		r16, low(RAMEND)
 	out		SPL, r16
+
+	; bail out of bootloader if the enable is low
+	sbic	PORTC, PIN_ENABLE
+	jmp		0
 
 	; SETUP DEBUG LED
 	sbi		DRED,	PIN_RED
