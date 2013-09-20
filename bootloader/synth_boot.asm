@@ -85,8 +85,8 @@ setup:
 	out		SPL, r16
 
 	; bail out of bootloader if the enable is low
-	sbic	PINC, PIN_ENABLE
-	jmp		0
+	sbis	PINC, PIN_ENABLE
+	rjmp	done
 
 	; SETUP DEBUG LED
 	sbi		DRED,	PIN_RED
