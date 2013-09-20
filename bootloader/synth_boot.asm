@@ -50,7 +50,7 @@ setup:
 	out		SPL, r16
 
 	; bail out of bootloader if the enable is low
-	sbic	PORTC, PIN_ENABLE
+	sbic	PINC, PIN_ENABLE
 	jmp		0
 
 	; SETUP DEBUG LED
