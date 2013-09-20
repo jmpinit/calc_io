@@ -127,9 +127,11 @@ loading:
 	brne	loading
 
 	; buffer is full - do a page write
+	cbi		PBLUE, PIN_BLUE
 	ldi		YH, high(SRAM_START)
 	ldi		YL, low(SRAM_START)
 	rcall	Write_page
+	sbi		PBLUE, PIN_BLUE
 
 	rjmp	reset_buffer
 
