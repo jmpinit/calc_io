@@ -8,7 +8,8 @@
 
 ;***** Constants
 
-.equ PAGESIZEB = PAGESIZE * 2	; PAGESIZEB is page size in BYTES, not words
+.equ	PAGESIZEB	= PAGESIZE * 2	; PAGESIZEB is page size in BYTES, not words
+.equ	DUMMY_TIME	= 20
 
 ;***** Pin definitions
 
@@ -36,6 +37,40 @@
 .def	temp1		= r16
 .def	temp2		= r17
 .def	spmcrval	= r20
+
+.cseg
+.org 0
+rjmp	dummy
+
+delay:
+	clr     r0
+	clr     r1
+delay0:
+	dec     r0
+	brne    delay0
+	dec     r1
+	brne    delay0
+	dec     r16
+	brne    delay0
+	ret
+
+dummy:
+	sbi		PRED, PIN_RED
+	ldi		r16, DUMMY_TIME
+	rcall	delay
+	cbi		PRED, PIN_RED
+
+	sbi		PGREEN, PIN_GREEN
+	ldi		r16, DUMMY_TIME
+	rcall	delay
+	cbi		PGREEN, PIN_GREEN
+
+	sbi		PBLUE, PIN_BLUE
+	ldi		r16, DUMMY_TIME
+	rcall	delay
+	cbi		PBLUE, PIN_BLUE
+
+	rjmp	dummy
 
 ;***** Program Execution Starts Here
 
