@@ -19,6 +19,10 @@
 .equ	PIN_GREEN	= PD6
 .equ	PIN_BLUE	= PD5
 
+.equ	PRED		= PORTB
+.equ	PGREEN		= PORTD
+.equ	PBLUE		= PORTD
+
 .equ	DRED		= DDRB
 .equ	DGREEN		= DDRD
 .equ	DBLUE		= DDRD
@@ -33,24 +37,35 @@
 
 ;***** Program Execution Starts Here
 
-.org SECONDBOOTSTART
+.cseg
+.org	SECONDBOOTSTART
 
 setup:
 	; SETUP STACK
+	ldi		r16, high(RAMEND)
+	out		SPH, r16
 	ldi		r16, low(RAMEND)
 	out		SPL, r16
 
 	; SETUP DEBUG LED
-	sbi		DDRB, PIN_RED
-	sbi		DDRD, PIN_GREEN
-	sbi		DDRD, PIN_BLUE
+	sbi		DRED,	PIN_RED
+	sbi		DGREEN,	PIN_GREEN
+	sbi		DBLUE,	PIN_BLUE
 
 	; TURN ON BLUE LED
-	sbi		DBLUE, PIN_BLUE
+	sbi		PBLUE, PIN_BLUE
 
 	; RESET CALC CONNECTION
 	rcall	ring_set_high
 	rcall	tip_set_high
+
+	; RESET PAGE PTR
+	clr		ZL
+	clr		ZH
+
+reset_buffer:
+	ldi		XH, high(SRAM_START)
+	ldi		XL, low(SRAM_START)
 
 loading:
 	; check if calc is talking to us
@@ -59,17 +74,28 @@ loading:
 	cpi		r18, (1<<PIN_RING)|(1<<PIN_TIP)
 	breq	loading			; no message - keep listening
 
-	rcall	Error			; fail, for testing if bootloader working TODO remove
-
-	; use the data
 	rcall	calc_receive	; get the calculator msg
 
-	rjmp	loading
+	; put data into buffer
+	st		X+, r16
+
+	; check if buffer is full
+	cpi		XH, high(SRAM_START + PAGESIZEB)
+	brne	loading
+	cpi		XL, low(SRAM_START + PAGESIZEB)
+	brne	loading
+
+	; buffer is full - do a page write
+	ldi		YH, high(SRAM_START)
+	ldi		YL, low(SRAM_START)
+	rcall	Write_page
+
+	rjmp	reset_buffer
 
 done:
 	; green light means bootloader successful/done
-	cbi		DBLUE, PIN_BLUE
-	sbi		DGREEN, PIN_GREEN
+	cbi		PBLUE, PIN_BLUE
+	sbi		PGREEN, PIN_GREEN
 
 	; start the loaded program
 	jmp		0
@@ -90,9 +116,9 @@ Write_page:
 Error:
 	; we failed for some reason
 	; turn on the red light of failure
-	cbi		DBLUE, PIN_BLUE
-	cbi		DGREEN, PIN_GREEN
-	sbi		DRED, PIN_RED
+	cbi		PBLUE, PIN_BLUE
+	cbi		PGREEN, PIN_GREEN
+	sbi		PRED, PIN_RED
 
 	; and sulk forever
 	rjmp	Error
