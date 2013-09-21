@@ -1,6 +1,6 @@
 include inc/make_info
 
-PROG		:= bootloader
+PROG		:= synthesizer
 BUILDDIR	:= build
 
 include inc/make_avr_asm

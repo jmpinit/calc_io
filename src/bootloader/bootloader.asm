@@ -1,4 +1,4 @@
- .include "m328Pdef_mod.inc"
+ .include "inc/m328Pdef_mod.inc"
 
 ;***** Macros
 .MACRO CALL_DELAY
@@ -143,7 +143,7 @@ done:
 	; start the loaded program
 	jmp		0
 
-.include	"lib_calc.asm"
+.include	"inc/lib_calc.asm"
 
 Write_page:
 	; Page Erase

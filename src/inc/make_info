@@ -1,0 +1,5 @@
+ASM		:= ~/.wine/drive_c/Program\ Files/Atmel/AVR\ Tools/AvrAssembler2/avrasm2.exe
+FLAGS	:= -fI
+
+define \n
+endef

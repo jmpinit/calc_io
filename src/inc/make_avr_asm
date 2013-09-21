@@ -1,0 +1,28 @@
+# makefile pattern for assembling AVR code
+# assumptions:
+#	* PROG is the name of the program being assembled
+#	* BUILDDIR is the name of the directory to place build files
+
+include inc/make_colors
+
+$(PROG): $(BUILDDIR)/$(PROG).hex
+
+$(BUILDDIR)/$(PROG).hex: $(PROG).asm $(BUILDDIR)/ 
+	@echo "$(BLUE)Assembling $(PROG)$(NO_COL)"
+	@$(ASM) $(FLAGS) \
+		-o $(BUILDDIR)/$(PROG).hex \
+		-l $(BUILDDIR)/$(PROG).list \
+		-m $(BUILDDIR)/$(PROG).map \
+		-e $(BUILDDIR)/$(PROG).eep \
+		$<
+
+$(BUILDDIR)/:
+	mkdir $(BUILDDIR)
+
+clean:
+	-rm $(BUILDDIR)/*.hex
+	-rm $(BUILDDIR)/*.list
+	-rm $(BUILDDIR)/*.map
+	-rm $(BUILDDIR)/*.eep
+
+.PHONY: clean
