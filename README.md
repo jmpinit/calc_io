@@ -1,6 +1,8 @@
 TI-83+ with Atmega328P Symbiote
 ===============================
 
+![sinewave output](http://hackniac.com/images/calc_out/sine_out_sm.jpg)
+
 Turn your calculator into a...
 ------------------------------
 
@@ -24,5 +26,8 @@ Dependencies
 Compilation
 ===========
 
-_synthesizer:_ `make synth`
+__synthesizer:__ `make synthesizer`
+
 __bootloader:__ `make bootloader` 
+
+_check out src/makefile for the full list of targets_
