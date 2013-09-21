@@ -15,3 +15,14 @@ AVR Development on Calculator
 
 * Write and compile AVR assembly code
 * Flash AVR directly from calculator using TI Link Protocol AVR bootloader and a program on the calculator.
+
+Dependencies
+============
+
+* avrasm2.exe from Atmel AVR Studio 4 (for Windows, but works on Linux via Wine)
+
+Compilation
+===========
+
+_synthesizer:_ `make synth`
+__bootloader:__ `make bootloader` 
