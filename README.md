@@ -26,8 +26,10 @@ Dependencies
 Compilation
 ===========
 
-__synthesizer:__ `make synthesizer`
+_Proper explanation coming soon..._
+Check out the makefiles.
 
-__bootloader:__ `make bootloader` 
+Installation
+============
 
-_check out src/makefile for the full list of targets_
+_Coming soon..._
