@@ -21,12 +21,25 @@ AVR Development on Calculator
 Dependencies
 ============
 
-* avrasm2.exe from Atmel AVR Studio 4 (for Windows, but works on Linux via Wine)
+## AVR
+
+* avrasm2.exe from Atmel AVR Studio 4 (for Windows, but works fine on Linux via Wine)
+
+## TI Calc
+
+__To Compile:__
+
+* tasm - _see intro of [Learn TI-83 Plus Assembly in 28 Days](http://www.ticalc.org/archives/files/fileinfo/268/26877.html)_
+* devpac8x - _see intro of [Learn TI-83 Plus Assembly in 28 Days](http://www.ticalc.org/archives/files/fileinfo/268/26877.html)_
+
+__To emulate on computer:__
+
+* [tilem2](http://lpg.ticalc.org/prj_tilem/download.html) 
 
 Compilation
 ===========
 
-_Proper explanation coming soon..._
+_Proper explanation coming soon..._ For now just hit `make <the thing you'd like to make>` and it'll probably work.
 Check out the makefiles.
 
 Installation
