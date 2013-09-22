@@ -3,3 +3,9 @@
 *.cof
 *.eep
 *.obj
+
+*.rom
+*.lst
+*.out
+*.ext
+*.skn
