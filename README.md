@@ -27,7 +27,7 @@ Dependencies
 
 ## TI Calc
 
-__To Compile:__
+__To compile:__
 
 * tasm - _see intro of [Learn TI-83 Plus Assembly in 28 Days](http://www.ticalc.org/archives/files/fileinfo/268/26877.html)_
 * devpac8x - _see intro of [Learn TI-83 Plus Assembly in 28 Days](http://www.ticalc.org/archives/files/fileinfo/268/26877.html)_
